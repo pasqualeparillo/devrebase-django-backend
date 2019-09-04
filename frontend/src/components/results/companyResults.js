@@ -24,7 +24,7 @@ export default function CompanyResults() {
     );
 }
 const CompanyCard = (props) =>  (
-    <div className="lg:w-1/6 md:w-2/5 w-2/5 flex flex-wrapflex-grow rounded p-4 sm:mt-2 mr-2 cursor-pointer card-shadow transform relative ">
+    <div className="lg:w-1/6 md:w-2/5 w-2/5 flex flex-wrap flex-grow rounded p-4 cursor-pointer card-shadow transform relative grey-gradient company-card">
         <div className="flex flex-wrap flex-grow lg:text-right md:text-left text-right items-start">
           <div className="w-full flex">
             <p>{props.name}</p>

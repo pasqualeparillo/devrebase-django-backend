@@ -103,3 +103,11 @@ input[type=number]::-webkit-outer-spin-button {
   margin-left: 10px;
   margin-right: 10px;
 }
+.company-card {
+  margin: .5em;
+}
+.company-card>* {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+

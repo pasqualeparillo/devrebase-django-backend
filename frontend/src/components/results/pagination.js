@@ -43,7 +43,7 @@ export default function Pagination() {
           {
             prevArrow ?
             <button 
-              className="border px-2 py-2 border-grey-100 text-indigo-600 transform shadow job-card hover:shadow-md hover:text-indigo-800"
+              className="border px-2 py-2 border-grey-100 text-indigo-600 transform shadow job-card grey-gradient hover:shadow-md hover:text-indigo-800"
               onClick={()=> prevPage()}>
               <IoIosArrowBack  />
             </button>
@@ -52,7 +52,7 @@ export default function Pagination() {
             {
               nextArrow ?
               <button 
-                className="border px-2 py-2 border-grey-100 text-indigo-600 transform shadow job-card hover:shadow-md hover:text-indigo-800"
+                className="border px-2 py-2 border-grey-100 text-indigo-600 transform shadow job-card grey-gradient hover:shadow-md hover:text-indigo-800"
                 onClick={()=> nextPage()}>           
                 <IoIosArrowForward  />
               </button>
