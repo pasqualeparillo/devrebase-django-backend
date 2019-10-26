@@ -26,10 +26,13 @@ class Profile(models.Model):
         return(self.user.username)
 
 
-class Posting(models.Model):
-    company_name = models.CharField(max_length=100)
-    title = models.CharField(max_length=200)
-    description = models.TextField()
+class Job(models.Model):
+    job_company = models.CharField(max_length=100, blank=True)
+    job_title = models.CharField(max_length=200, blank=True)
+    job_body = models.TextField(blank=True)
+    job_url = models.TextField(blank=True)
+    job_source = models.CharField(max_length=30, blank=True)
+    job_location = models.CharField(max_length=100, blank=True)
     created_date = models.DateTimeField(
         auto_now_add=True)
     favorite = models.ManyToManyField(

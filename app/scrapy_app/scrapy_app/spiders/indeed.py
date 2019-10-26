@@ -4,8 +4,8 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
 
-class PostingsSpider(CrawlSpider):
-    name = 'postings'
+class IndeedSpider(CrawlSpider):
+    name = 'indeed'
     start_urls = [
 
         'http://quotes.toscrape.com/',

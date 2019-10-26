@@ -6,10 +6,10 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-from api.models import Posting
+from api.models import Job
 
 class ScrapyAppPipeline(object):
     def process_item(self, item, spider):
-        item = Posting(description=item.get('text'), company_name=item.get('author'), title=item.get('author'))
+        item = Job(job_body=item.get('text'), job_company=item.get('author'), job_title=item.get('author'), job_source=('indeed'), job_url=item.get('url'), job_location=item.get('location') )
         item.save()
         return item

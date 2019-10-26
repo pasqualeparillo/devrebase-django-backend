@@ -6,7 +6,7 @@ from rest_framework.exceptions import NotFound as NotFoundError
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view
 from .serializers import JobSerializer, CompanySerializer
-from .models import Posting
+from .models import Job
 from django.db.models import Count, Sum
 # Pagination for job listings
 
@@ -22,7 +22,7 @@ class ListJob(generics.ListAPIView):
     serializer_class = JobSerializer
 
     def get_queryset(self, **kwargs):
-        jobs = Posting.objects.all()
+        jobs = Job.objects.all()
         return jobs
 
 # detail view for job postings
@@ -34,7 +34,7 @@ class DetailJob(generics.RetrieveAPIView):
     lookup_fields = ('id')
 
     def get_queryset(self, **kwargs):
-        jobs = Posting.objects.all()
+        jobs = Job.objects.all()
         return jobs
 
 # Search view for job postings
@@ -42,10 +42,10 @@ class DetailJob(generics.RetrieveAPIView):
 
 class SearchList(generics.ListAPIView):
     pagination_class = ListJobPagination
-    queryset = Posting.objects.all()
+    queryset = Job.objects.all()
     serializer_class = JobSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('title', 'description')
+    search_fields = ('job_title', 'job_body')
 
 # view for listing popular companies
 
@@ -55,25 +55,25 @@ class ListCompany(generics.ListAPIView):
     serializer_class = JobSerializer
 
     def get_queryset(self):
-        company = self.kwargs['company_name']
-        return Posting.objects.all().filter(company_name=company)
+        company = self.kwargs['job_company']
+        return Job.objects.all().filter(company_name=company)
 
 
 class CompanyCount(generics.ListAPIView):
     pagination_class = ListJobPagination
     serializer_class = CompanySerializer
-    queryset = Posting.objects.all()
+    queryset = Job.objects.all()
 
     def get_queryset(self):
-        return Posting.objects.values('company_name').annotate(
-            companies=Count('company_name'),
+        return Job.objects.values('job_company').annotate(
+            companies=Count('job_company'),
         ).order_by('-companies')[:20]
 
 
 # View for adding/removing as favorite
 @api_view(['GET'])
 def FavoriteJob(request, id):
-    job = get_object_or_404(Posting, id=id)
+    job = get_object_or_404(Job, id=id)
     # Check if user is in favorite list on model & remove if so.
     if job.favorite.filter(id=request.user.id).exists():
         job.favorite.remove(request.user)
