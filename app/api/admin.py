@@ -3,4 +3,5 @@ from api.models import Profile, Posting
 
 admin.site.register(Profile)
 admin.site.register(Posting)
-# Register your models here.
+class PostingAdmin(admin.ModelAdmin):
+    date_hierarchy = 'pub_date'
