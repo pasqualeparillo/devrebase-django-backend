@@ -10,6 +10,6 @@ from api.models import Job
 
 class ScrapyAppPipeline(object):
     def process_item(self, item, spider):
-        item = Job(job_body=item.get('text'), job_company=item.get('author'), job_title=item.get('author'), job_source=('indeed'), job_url=item.get('url'), job_location=item.get('location') )
+        item = Job(job_body=item.get('job_body'), job_company=item.get('job_company'), job_title=item.get('job_title'), job_source=('indeed'), job_url=item.get('job_url'), job_location=item.get('job_location') )
         item.save()
         return item

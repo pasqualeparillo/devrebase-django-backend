@@ -39,4 +39,4 @@ class Job(models.Model):
         User, related_name='favorite', blank=True)
 
     def __str__(self):
-        return(self.title)
+        return(self.job_title)
