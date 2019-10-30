@@ -9,7 +9,8 @@
 from api.models import Job
 
 class ScrapyAppPipeline(object):
+    baseUrl = 'http://indeed.com'
     def process_item(self, item, spider):
-        item = Job(job_body=item.get('job_body'), job_company=item.get('job_company'), job_title=item.get('job_title'), job_source=('indeed'), job_url=item.get('job_url'), job_location=item.get('job_location') )
+        item = Job(job_body=item.get('job_body'), job_company=item.get('job_company'), job_title=item.get('job_title'), job_source=('indeed'), job_url=(self.baseUrl + item.get('job_url')), job_location=item.get('job_location') )
         item.save()
         return item
