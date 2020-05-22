@@ -1,16 +1,30 @@
 from django.http import JsonResponse
+import django_filters.rest_framework
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status, filters
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound as NotFoundError
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view
-from .serializers import JobSerializer, CompanySerializer
+from .serializers import JobSerializer, CompanySerializer, TokenSerializer
 from .models import Job
 from django.db.models import Count, Sum
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 # Pagination for job listings
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
 
 
+@api_view()
+def null_view(request):
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+class GoogleLogin(SocialLoginView):
+    authentication_classes = (JSONWebTokenAuthentication,)
+    adapter_class = GoogleOAuth2Adapter
+    client_class = OAuth2Client
+          
 class ListJobPagination(PageNumberPagination):
     page_size = 20  # Number of objects to return in one page
 
@@ -20,6 +34,7 @@ class ListJobPagination(PageNumberPagination):
 class ListJob(generics.ListAPIView):
     pagination_class = ListJobPagination
     serializer_class = JobSerializer
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
     def get_queryset(self, **kwargs):
         jobs = Job.objects.all()

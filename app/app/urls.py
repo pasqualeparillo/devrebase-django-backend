@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import ListJob, DetailJob, FavoriteJob, FavoriteList, SearchList, ListCompany, CompanyCount
+from api.views import ListJob, DetailJob, FavoriteJob, FavoriteList, SearchList, ListCompany, CompanyCount, GoogleLogin, null_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +26,8 @@ urlpatterns = [
     path("", SearchList.as_view(), name="search"),
     path("favorite/<id>", FavoriteJob, name="favorite"),
     path('favorite/', FavoriteList, name="favorite jobs"),
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls'))
+    path('accounts/', include('allauth.urls')),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('dj-rest-auth/google/', GoogleLogin.as_view(), name='google_login'),
+    path('dj-rest-auth/resgisration/account-confirm-email/', null_view, name='account_email_verification_sent')
 ]
