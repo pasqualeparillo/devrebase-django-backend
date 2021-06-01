@@ -77,7 +77,7 @@ Twisted==18.9.0
 typed-ast==1.1.0
 typing==3.6.4
 uritemplate==3.0.0
-urllib3==1.22
+urllib3==1.26.5
 virtualenv==16.0.0
 w3lib==1.20.0
 wrapt==1.10.11
